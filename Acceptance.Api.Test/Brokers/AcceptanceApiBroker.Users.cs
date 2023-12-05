@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Acceptance.Api.Test.Models.Users;
 using System;
-using Acceptance.Api.Test.Models.Users;
-using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Acceptance.Api.Test.Brokers
 {
@@ -11,7 +10,8 @@ namespace Acceptance.Api.Test.Brokers
         private const string UsersRelativeUrl = "api/users";
 
         public async ValueTask<User> PostUserAsync(User user) =>
-            throw new NotImplementedException();
+            await this.apiFactoryClient.PostContentAsync(UsersRelativeUrl, user);
+
         public async ValueTask<User> GetUserByIdAsync(Guid userId) =>
             await this.apiFactoryClient.GetContentAsync<User>($"{UsersRelativeUrl}/{userId}");
 
