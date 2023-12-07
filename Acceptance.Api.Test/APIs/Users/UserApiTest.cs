@@ -1,6 +1,8 @@
 ﻿using Acceptance.Api.Test.Brokers;
 using AcceptanceCRUD.Models.Users;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Tynamix.ObjectFiller;
@@ -42,5 +44,11 @@ namespace Acceptance.Api.Test.APIs.Users
 
             return user;
         }
+
+        private static int GetRandomNumber() => 
+            new IntRange(min: 2, max: 20).GetValue();
+
+        private static IEnumerable<User> GetRandomUsers() =>
+            CreateRandomUserFiller().Create(GetRandomNumber());
     }
 }

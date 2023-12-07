@@ -22,6 +22,6 @@ namespace Acceptance.Api.Test.Brokers
             await this.apiFactoryClient.PutContentAsync(UsersRelativeUrl, user);
 
         public async ValueTask<List<User>> GetAllUsersAsync() =>
-            await this.apiFactoryClient.GetContentAsync<List<User>>($"{UsersRelativeUrl}/");
+            throw new NotImplementedException();
     }
 }

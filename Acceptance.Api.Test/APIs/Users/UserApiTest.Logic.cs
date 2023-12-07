@@ -1,6 +1,10 @@
 ﻿using Acceptance.Api.Test.Brokers;
 using AcceptanceCRUD.Models.Users;
 using FluentAssertions;
+using Newtonsoft.Json.Linq;
+using RESTFulSense.Exceptions;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -44,6 +48,32 @@ namespace Acceptance.Api.Test.APIs.Users
             // then
             actualUser.Should().BeEquivalentTo(modifiedUser);
             await this.acceptanceApiBroker.DeleteUserByIdAsync(actualUser.Id);
+        }
+
+        [Fact]
+        public async Task ShouldGetAllUsersAsync()
+        {
+            // given
+            IEnumerable<User> randomUsers = GetRandomUsers();
+            IEnumerable<User> inputUsers = randomUsers;
+
+            foreach(User user in inputUsers)
+            {
+                await this.acceptanceApiBroker.PostUserAsync(user);
+            }
+            
+            List<User> expectedUsers = inputUsers.ToList();
+
+            // when
+            List<User> actualUsers = await this.acceptanceApiBroker.GetAllUsersAsync();
+
+            // then
+            foreach(User expectedUser in expectedUsers)
+            {
+                User actualUser = actualUsers.Single(u => u.Id == expectedUser.Id);
+                actualUser.Should().BeEquivalentTo(expectedUser);
+                await this.acceptanceApiBroker.DeleteUserByIdAsync(actualUser.Id);
+            }
         }
     }
 }
