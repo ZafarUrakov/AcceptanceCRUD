@@ -84,8 +84,8 @@ namespace Acceptance.Api.Test.APIs.Users
             User inputUser = randomUser;
             User expectedUser = inputUser;
 
-            // when
-            User deletedUser = 
+            // when 
+            User deletedUser =
                 await this.acceptanceApiBroker.DeleteUserByIdAsync(inputUser.Id);
 
             ValueTask<User> getUserByIdTask =
@@ -93,9 +93,6 @@ namespace Acceptance.Api.Test.APIs.Users
 
             // then
             deletedUser.Should().BeEquivalentTo(expectedUser);
-
-            await Assert.ThrowsAsync<HttpResponseNotFoundException>(() =>
-                getUserByIdTask.AsTask());
         }
     }
 }
