@@ -75,5 +75,27 @@ namespace Acceptance.Api.Test.APIs.Users
                 await this.acceptanceApiBroker.DeleteUserByIdAsync(actualUser.Id);
             }
         }
+
+        [Fact]
+        public async Task ShouldDeleteUserAsync()
+        {
+            // given
+            User randomUser = await PostRandomUserAsync();
+            User inputUser = randomUser;
+            User expectedUser = inputUser;
+
+            // when
+            User deletedUser = 
+                await this.acceptanceApiBroker.DeleteUserByIdAsync(inputUser.Id);
+
+            ValueTask<User> getUserByIdTask =
+                this.acceptanceApiBroker.GetUserByIdAsync(inputUser.Id);
+
+            // then
+            deletedUser.Should().BeEquivalentTo(expectedUser);
+
+            await Assert.ThrowsAsync<HttpResponseNotFoundException>(() =>
+                getUserByIdTask.AsTask());
+        }
     }
 }
