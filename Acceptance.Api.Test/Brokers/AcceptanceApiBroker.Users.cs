@@ -1,4 +1,4 @@
-﻿using Acceptance.Api.Test.Models.Users;
+﻿using AcceptanceCRUD.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

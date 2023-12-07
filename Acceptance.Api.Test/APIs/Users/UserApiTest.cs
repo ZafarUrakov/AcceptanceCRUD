@@ -1,5 +1,8 @@
 ﻿using Acceptance.Api.Test.Brokers;
-using Acceptance.Api.Test.Models.Users;
+using AcceptanceCRUD.Models.Users;
+using System;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Tynamix.ObjectFiller;
 using Xunit;
 
@@ -23,6 +26,21 @@ namespace Acceptance.Api.Test.APIs.Users
             var filler = new Filler<User>();
 
             return filler;
+        }
+         
+        private async ValueTask<User> PostRandomUserAsync()
+        {
+            User randomUser = CreateRandomUser();
+            await this.acceptanceApiBroker.PostUserAsync(randomUser);
+
+            return randomUser;
+        }
+
+        private static User UpdateRandomUserAsunc(User user)
+        {
+            user.Id = Guid.NewGuid();
+
+            return user;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Acceptance.Api.Test.Brokers;
-using Acceptance.Api.Test.Models.Users;
+using AcceptanceCRUD.Models.Users;
 using FluentAssertions;
 using System.Threading.Tasks;
 using Xunit;
@@ -25,6 +25,24 @@ namespace Acceptance.Api.Test.APIs.Users
 
             // then
             actualUser.Should().BeEquivalentTo(expectedUser);
+            await this.acceptanceApiBroker.DeleteUserByIdAsync(actualUser.Id);
+        }
+
+        [Fact]
+        public async Task ShouldPutUserAsync()
+        {
+            // given
+            User randomUser = await PostRandomUserAsync();
+            User modifiedUser = UpdateRandomUserAsunc(randomUser);
+
+            // when
+            await this.acceptanceApiBroker.PutUserAsync(modifiedUser);
+
+            User actualUser =
+                await this.acceptanceApiBroker.GetUserByIdAsync(randomUser.Id);
+
+            // then
+            actualUser.Should().BeEquivalentTo(modifiedUser);
             await this.acceptanceApiBroker.DeleteUserByIdAsync(actualUser.Id);
         }
     }
