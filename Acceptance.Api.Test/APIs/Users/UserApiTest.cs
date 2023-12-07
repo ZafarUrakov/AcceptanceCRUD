@@ -38,7 +38,7 @@ namespace Acceptance.Api.Test.APIs.Users
 
         private static User UpdateRandomUserAsunc(User user)
         {
-            user.Id = Guid.NewGuid();
+            user.FirstName = "Test";
 
             return user;
         }
