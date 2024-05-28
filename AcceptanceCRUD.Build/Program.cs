@@ -48,7 +48,7 @@ var githubPipeline = new GithubPipeline
 
                         TargetDotNetVersion = new TargetDotNetVersion
                         {
-                            DotNetVersion = "8.0.300",
+                            DotNetVersion = "8.0.204",
                             IncludePrerelease = true
                         }
                     },
